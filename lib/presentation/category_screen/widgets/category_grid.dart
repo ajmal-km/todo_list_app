@@ -12,20 +12,13 @@ class CategoryGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: onGridTap,
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(40),
-        bottomRight: Radius.circular(40),
-      ),
       child: Container(
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: ColorConstants.cyan,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(40),
-            bottomRight: Radius.circular(40),
-          ),
+          borderRadius: BorderRadius.circular(15),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -42,9 +35,9 @@ class CategoryGrid extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              "progress",
+              "Progress",
               style: GoogleFonts.poppins(
-                color: ColorConstants.black,
+                color: ColorConstants.white,
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
                 letterSpacing: -0.6,
@@ -54,7 +47,7 @@ class CategoryGrid extends StatelessWidget {
               padding: EdgeInsets.only(top: 10),
               child: LinearProgressIndicator(
                 value: 1 / 1.5,
-                color: ColorConstants.black,
+                color: ColorConstants.grey,
                 borderRadius: BorderRadius.circular(7),
                 minHeight: 9,
               ),

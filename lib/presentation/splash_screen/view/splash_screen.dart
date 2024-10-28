@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list_app/utils/color_constants.dart';
 import 'package:todo_list_app/utils/image_constants.dart';
-import 'package:todo_list_app/view/register_screen/register_screen.dart';
+import 'package:todo_list_app/presentation/register_screen/view/register_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:todo_list_app/utils/color_constants.dart';
 import 'package:todo_list_app/utils/image_constants.dart';
 
-class ProfileScreen extends StatefulWidget {
+import '../controller/profile_controller.dart';
+import '../state/profile_screen_state.dart';
+
+class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController dateOfBirthController = TextEditingController();
-  bool isNameReadOnly = true;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final profileScreenState =
+        ref.watch(profileScreenProvider) as ProfileScreenState;
+    TextEditingController nameController = TextEditingController();
+    TextEditingController dateOfBirthController = TextEditingController();
     return Scaffold(
       backgroundColor: ColorConstants.white,
       appBar: AppBar(
@@ -51,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onTapOutside: (event) {
                   FocusManager.instance.primaryFocus!.unfocus();
                 },
-                readOnly: isNameReadOnly,
+                readOnly: profileScreenState.isNameReadOnly,
                 style: GoogleFonts.poppins(
                   color: ColorConstants.black,
                   fontSize: 18,
@@ -60,23 +59,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
-                    onPressed: () {
-                      isNameReadOnly = false;
-                      setState(() {});
-                    },
+                    onPressed: () =>
+                        ref.read(profileScreenProvider.notifier).onEditTapped(),
                     icon: Icon(
                       Icons.edit,
                       color: ColorConstants.cyan,
                     ),
                   ),
-                  label: Text(
-                    "Name",
-                    style: GoogleFonts.poppins(
-                      color: ColorConstants.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: -0.5,
-                    ),
+                  hintText: "Name",
+                  hintStyle: GoogleFonts.poppins(
+                    color: ColorConstants.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: -0.5,
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -111,14 +106,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   letterSpacing: -0.5,
                 ),
                 decoration: InputDecoration(
-                  label: Text(
-                    "Date of Birth",
-                    style: GoogleFonts.poppins(
-                      color: ColorConstants.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: -0.5,
-                    ),
+                  hintText: "Date of Birth",
+                  hintStyle: GoogleFonts.poppins(
+                    color: ColorConstants.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: -0.5,
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -130,17 +123,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     borderSide:
                         BorderSide(width: 2.3, color: ColorConstants.cyan),
                   ),
-                  suffixIcon: isNameReadOnly
+                  suffixIcon: profileScreenState.isNameReadOnly
                       ? null
                       : IconButton(
                           onPressed: () async {
-                            var birthDate = await showDatePicker(
-                              context: context,
-                              firstDate: DateTime(1930),
-                              lastDate: DateTime.now(),
-                            );
-                            dateOfBirthController.text =
-                                DateFormat('yMd').format(birthDate!);
+                            dateOfBirthController.text = await ref
+                                .read(profileScreenProvider.notifier)
+                                .updateDOB(context);
                           },
                           icon: Icon(
                             Icons.calendar_month_outlined,
@@ -157,31 +146,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },
               ),
               Visibility(
-                visible: !isNameReadOnly,
+                visible: profileScreenState.isWidgetVisible,
                 child: SizedBox(height: 20),
               ),
               Visibility(
-                visible: !isNameReadOnly,
+                visible: profileScreenState.isWidgetVisible,
                 child: Row(
                   children: <Widget>[
                     Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          isNameReadOnly = !isNameReadOnly;
-                          setState(() {});
-                        },
+                      child: GestureDetector(
+                        onTap: () => ref
+                            .read(profileScreenProvider.notifier)
+                            .onSaveOrCancelTapped(),
                         child: Container(
-                          height: 54,
+                          height: 40,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: ColorConstants.cyan,
-                            borderRadius: BorderRadius.circular(25),
+                            borderRadius: BorderRadius.circular(11),
                           ),
                           child: Text(
                             "Save",
                             style: GoogleFonts.poppins(
                               color: ColorConstants.white,
-                              fontSize: 22,
+                              fontSize: 20,
                               fontWeight: FontWeight.w700,
                               letterSpacing: -0.5,
                             ),
@@ -191,23 +179,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     SizedBox(width: 14),
                     Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          isNameReadOnly = !isNameReadOnly;
-                          setState(() {});
-                        },
+                      child: GestureDetector(
+                        onTap: () => ref
+                            .read(profileScreenProvider.notifier)
+                            .onSaveOrCancelTapped(),
                         child: Container(
-                          height: 54,
+                          height: 40,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: ColorConstants.cyan,
-                            borderRadius: BorderRadius.circular(25),
+                            borderRadius: BorderRadius.circular(11),
                           ),
                           child: Text(
                             "Cancel",
                             style: GoogleFonts.poppins(
                               color: ColorConstants.white,
-                              fontSize: 22,
+                              fontSize: 20,
                               fontWeight: FontWeight.w700,
                               letterSpacing: -0.5,
                             ),

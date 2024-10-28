@@ -1,37 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:todo_list_app/presentation/bottom_nav_bar_screen/controller/bottom_navbar_controller.dart';
+import 'package:todo_list_app/presentation/bottom_nav_bar_screen/state/bottom_navbar_state.dart';
 import 'package:todo_list_app/utils/color_constants.dart';
 import 'package:todo_list_app/utils/image_constants.dart';
-import 'package:todo_list_app/view/category_screen/category_screen.dart';
-import 'package:todo_list_app/view/home_screen/home_screen.dart';
-import 'package:todo_list_app/view/profile_screen/profile_screen.dart';
 
-class BottomNavBarScreen extends StatefulWidget {
+class BottomNavBarScreen extends ConsumerWidget {
   const BottomNavBarScreen({super.key});
 
   @override
-  State<BottomNavBarScreen> createState() => _BottomNavBarScreenState();
-}
-
-class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
-  List<Widget> screens = [
-    HomeScreen(),
-    CategoryScreen(),
-    ProfileScreen(),
-  ];
-  int selectedIndex = 0;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final navBarState = ref.watch(navBarProvider) as BottomNavbarState;
     return Scaffold(
-      body: screens[selectedIndex],
+      body: navBarState.screens[navBarState.currentScreenIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: ColorConstants.white,
         onTap: (value) {
-          selectedIndex = value;
-          screens[selectedIndex] = screens[value];
-          setState(() {});
+          ref.read(navBarProvider.notifier).changeScreen(value);
         },
-        currentIndex: selectedIndex,
+        currentIndex: navBarState.currentScreenIndex,
         selectedItemColor: ColorConstants.cyan,
         unselectedItemColor: ColorConstants.black,
         selectedLabelStyle: GoogleFonts.poppins(

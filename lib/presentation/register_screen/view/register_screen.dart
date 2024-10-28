@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:todo_list_app/utils/color_constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_list_app/utils/image_constants.dart';
-import 'package:todo_list_app/view/bottom_nav_bar_screen/bottom_nav_bar_screen.dart';
+import 'package:todo_list_app/presentation/bottom_nav_bar_screen/view/bottom_nav_bar_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -140,8 +140,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ],
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-        child: InkWell(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        child: GestureDetector(
           onTap: () {
             Navigator.pushReplacement(
               context,
@@ -150,7 +150,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             );
           },
-          borderRadius: BorderRadius.circular(35),
           child: Container(
             height: 60,
             alignment: Alignment.center,

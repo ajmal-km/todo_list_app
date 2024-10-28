@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_list_app/utils/color_constants.dart';
-import 'package:todo_list_app/view/category_screen/widgets/category_grid.dart';
+import 'package:todo_list_app/presentation/category_screen/widgets/category_grid.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
