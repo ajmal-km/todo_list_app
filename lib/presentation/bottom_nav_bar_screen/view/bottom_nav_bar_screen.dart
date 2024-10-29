@@ -21,12 +21,12 @@ class BottomNavBarScreen extends ConsumerWidget {
         },
         currentIndex: navBarState.currentScreenIndex,
         selectedItemColor: ColorConstants.cyan,
-        unselectedItemColor: ColorConstants.black,
+        unselectedItemColor: ColorConstants.grey,
         selectedLabelStyle: GoogleFonts.poppins(
           fontWeight: FontWeight.w700,
         ),
         unselectedLabelStyle: GoogleFonts.poppins(
-          color: ColorConstants.black,
+          color: ColorConstants.grey,
           fontWeight: FontWeight.w700,
         ),
         items: <BottomNavigationBarItem>[

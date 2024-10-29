@@ -10,7 +10,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   var todoBox = await Hive.openBox(AppSessions.todoBox);
-  runApp(ProviderScope(child: const MyApp()));
+  runApp(
+    ProviderScope(
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

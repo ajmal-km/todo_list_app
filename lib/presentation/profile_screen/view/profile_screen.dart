@@ -32,7 +32,7 @@ class ProfileScreen extends ConsumerWidget {
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.fromLTRB(14, 35, 14, 14),
+        padding: EdgeInsets.only(top: 35, bottom: 14),
         children: <Widget>[
           Image.asset(
             ImageConstants.MALE_AVATAR,
@@ -40,172 +40,176 @@ class ProfileScreen extends ConsumerWidget {
             width: 200,
           ),
           SizedBox(height: 40),
-          Column(
-            children: <Widget>[
-              TextFormField(
-                cursorWidth: 2.3,
-                cursorColor: ColorConstants.black,
-                cursorRadius: Radius.circular(10),
-                controller: nameController,
-                onTapOutside: (event) {
-                  FocusManager.instance.primaryFocus!.unfocus();
-                },
-                readOnly: profileScreenState.isNameReadOnly,
-                style: GoogleFonts.poppins(
-                  color: ColorConstants.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: -0.5,
-                ),
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    onPressed: () =>
-                        ref.read(profileScreenProvider.notifier).onEditTapped(),
-                    icon: Icon(
-                      Icons.edit,
-                      color: ColorConstants.cyan,
-                    ),
-                  ),
-                  hintText: "Name",
-                  hintStyle: GoogleFonts.poppins(
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 14),
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  cursorWidth: 2.3,
+                  cursorColor: ColorConstants.black,
+                  cursorRadius: Radius.circular(10),
+                  controller: nameController,
+                  onTapOutside: (event) {
+                    FocusManager.instance.primaryFocus!.unfocus();
+                  },
+                  readOnly: profileScreenState.isNameReadOnly,
+                  style: GoogleFonts.poppins(
                     color: ColorConstants.black,
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                     letterSpacing: -0.5,
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide:
-                        BorderSide(width: 2.3, color: ColorConstants.cyan),
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () => ref
+                          .read(profileScreenProvider.notifier)
+                          .onEditTapped(),
+                      icon: Icon(
+                        Icons.edit,
+                        color: ColorConstants.cyan,
+                      ),
+                    ),
+                    hintText: "Name",
+                    hintStyle: GoogleFonts.poppins(
+                      color: ColorConstants.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.5,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide:
+                          BorderSide(width: 2.3, color: ColorConstants.cyan),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide:
+                          BorderSide(width: 2.3, color: ColorConstants.cyan),
+                    ),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide:
-                        BorderSide(width: 2.3, color: ColorConstants.cyan),
-                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Enter your name";
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Enter your name";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                onTapOutside: (event) {
-                  FocusManager.instance.primaryFocus!.unfocus();
-                },
-                readOnly: true,
-                controller: dateOfBirthController,
-                style: GoogleFonts.poppins(
-                  color: ColorConstants.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: -0.5,
-                ),
-                decoration: InputDecoration(
-                  hintText: "Date of Birth",
-                  hintStyle: GoogleFonts.poppins(
+                SizedBox(height: 20),
+                TextFormField(
+                  onTapOutside: (event) {
+                    FocusManager.instance.primaryFocus!.unfocus();
+                  },
+                  readOnly: true,
+                  controller: dateOfBirthController,
+                  style: GoogleFonts.poppins(
                     color: ColorConstants.black,
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                     letterSpacing: -0.5,
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide:
-                        BorderSide(width: 2.3, color: ColorConstants.cyan),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide:
-                        BorderSide(width: 2.3, color: ColorConstants.cyan),
-                  ),
-                  suffixIcon: profileScreenState.isNameReadOnly
-                      ? null
-                      : IconButton(
-                          onPressed: () async {
-                            dateOfBirthController.text = await ref
-                                .read(profileScreenProvider.notifier)
-                                .updateDOB(context);
-                          },
-                          icon: Icon(
-                            Icons.calendar_month_outlined,
-                            color: ColorConstants.cyan,
+                  decoration: InputDecoration(
+                    hintText: "Date of Birth",
+                    hintStyle: GoogleFonts.poppins(
+                      color: ColorConstants.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.5,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide:
+                          BorderSide(width: 2.3, color: ColorConstants.cyan),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide:
+                          BorderSide(width: 2.3, color: ColorConstants.cyan),
+                    ),
+                    suffixIcon: profileScreenState.isNameReadOnly
+                        ? null
+                        : IconButton(
+                            onPressed: () async {
+                              dateOfBirthController.text = await ref
+                                  .read(profileScreenProvider.notifier)
+                                  .updateDOB(context);
+                            },
+                            icon: Icon(
+                              Icons.calendar_month_outlined,
+                              color: ColorConstants.cyan,
+                            ),
                           ),
-                        ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Select your date of birth";
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Select your date of birth";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-              Visibility(
-                visible: profileScreenState.isWidgetVisible,
-                child: SizedBox(height: 20),
-              ),
-              Visibility(
-                visible: profileScreenState.isWidgetVisible,
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () => ref
-                            .read(profileScreenProvider.notifier)
-                            .onSaveOrCancelTapped(),
-                        child: Container(
-                          height: 40,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: ColorConstants.cyan,
-                            borderRadius: BorderRadius.circular(11),
-                          ),
-                          child: Text(
-                            "Save",
-                            style: GoogleFonts.poppins(
-                              color: ColorConstants.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: -0.5,
+                Visibility(
+                  visible: profileScreenState.isWidgetVisible,
+                  child: SizedBox(height: 20),
+                ),
+                Visibility(
+                  visible: profileScreenState.isWidgetVisible,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => ref
+                              .read(profileScreenProvider.notifier)
+                              .onSaveOrCancelTapped(),
+                          child: Container(
+                            height: 40,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: ColorConstants.cyan,
+                              borderRadius: BorderRadius.circular(11),
+                            ),
+                            child: Text(
+                              "Save",
+                              style: GoogleFonts.poppins(
+                                color: ColorConstants.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: -0.5,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(width: 14),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () => ref
-                            .read(profileScreenProvider.notifier)
-                            .onSaveOrCancelTapped(),
-                        child: Container(
-                          height: 40,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: ColorConstants.cyan,
-                            borderRadius: BorderRadius.circular(11),
-                          ),
-                          child: Text(
-                            "Cancel",
-                            style: GoogleFonts.poppins(
-                              color: ColorConstants.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: -0.5,
+                      SizedBox(width: 14),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => ref
+                              .read(profileScreenProvider.notifier)
+                              .onSaveOrCancelTapped(),
+                          child: Container(
+                            height: 40,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: ColorConstants.cyan,
+                              borderRadius: BorderRadius.circular(11),
+                            ),
+                            child: Text(
+                              "Cancel",
+                              style: GoogleFonts.poppins(
+                                color: ColorConstants.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: -0.5,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           SizedBox(height: 15),
           Column(
@@ -223,6 +227,11 @@ class ProfileScreen extends ConsumerWidget {
                     letterSpacing: -0.5,
                   ),
                 ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  color: ColorConstants.cyan,
+                  size: 20,
+                ),
               ),
               ListTile(
                 tileColor: ColorConstants.white,
@@ -230,6 +239,25 @@ class ProfileScreen extends ConsumerWidget {
                 leading: Icon(Icons.info),
                 title: Text(
                   "About",
+                  style: GoogleFonts.poppins(
+                    color: ColorConstants.cyan,
+                    fontSize: 19,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  color: ColorConstants.cyan,
+                  size: 20,
+                ),
+              ),
+              ListTile(
+                tileColor: ColorConstants.white,
+                iconColor: ColorConstants.cyan,
+                leading: Icon(Icons.logout),
+                title: Text(
+                  "Logout",
                   style: GoogleFonts.poppins(
                     color: ColorConstants.cyan,
                     fontSize: 19,

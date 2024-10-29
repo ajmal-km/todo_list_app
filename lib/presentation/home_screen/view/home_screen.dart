@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:todo_list_app/presentation/home_screen/widgets/task_container.dart';
+import 'package:todo_list_app/presentation/todo_screen/view/todo_screen.dart';
 import 'package:todo_list_app/utils/app_sessions.dart';
 import 'package:todo_list_app/utils/color_constants.dart';
 
@@ -47,72 +49,16 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.fromLTRB(14, 22, 14, 14),
         separatorBuilder: (context, index) => SizedBox(height: 20),
         itemCount: 5,
-        itemBuilder: (context, index) => Container(
-          height: 100,
-          padding: EdgeInsets.fromLTRB(12, 12, 1, 15),
-          decoration: BoxDecoration(
-            color: ColorConstants.cyan,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Text(
-                    "Title",
-                    style: GoogleFonts.poppins(
-                      color: ColorConstants.white,
-                      fontSize: 21,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                  Spacer(),
-                  Text(
-                    "Date",
-                    style: GoogleFonts.poppins(
-                      color: ColorConstants.white,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: -0.3,
-                    ),
-                  ),
-                  PopupMenuButton(
-                    color: ColorConstants.white,
-                    iconColor: ColorConstants.white,
-                    itemBuilder: (context) => <PopupMenuEntry>[
-                      PopupMenuItem(
-                        child: Text(
-                          "Remove",
-                          style: GoogleFonts.poppins(
-                            color: ColorConstants.cyan,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: -0.3,
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              Text(
-                "Due Date",
-                style: GoogleFonts.poppins(
-                  color: ColorConstants.white,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: -0.3,
-                ),
-              ),
-            ],
-          ),
-        ),
+        itemBuilder: (context, index) => TaskContainer(),
       ),
       floatingActionButton: GestureDetector(
         onTap: () {
-          //
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TodoScreen(),
+            ),
+          );
         },
         child: Container(
           height: 57,
