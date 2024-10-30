@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list_app/presentation/login_screen/view/login_screen.dart';
 import 'package:todo_list_app/utils/color_constants.dart';
 import 'package:todo_list_app/utils/image_constants.dart';
-import 'package:todo_list_app/presentation/register_screen/view/register_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => RegisterScreen(),
+            builder: (context) => LoginScreen(),
           ),
         );
       },
@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: Image.asset(
           ImageConstants.TODO_LOGO,
-          scale: 2.17,
+          scale: 1.9,
         ),
       ),
     );

@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_list_app/presentation/user_screen/controller/user_controller.dart';
 import 'package:todo_list_app/utils/color_constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_list_app/utils/image_constants.dart';
-import 'package:todo_list_app/presentation/bottom_nav_bar_screen/view/bottom_nav_bar_screen.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+import '../../bottom_nav_bar_screen/view/bottom_nav_bar_screen.dart';
+
+class UserScreen extends ConsumerStatefulWidget {
+  const UserScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _UserScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController nameController = TextEditingController();
+class _UserScreenState extends ConsumerState<UserScreen> {
+  final TextEditingController nameController = TextEditingController();
   TextEditingController dateOfBirthController = TextEditingController();
   final GlobalKey _formKey = GlobalKey<FormState>();
   @override
@@ -118,7 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           lastDate: DateTime.now(),
                         );
                         dateOfBirthController.text =
-                            DateFormat('yMd').format(birthDate!);
+                            DateFormat('yMMd').format(birthDate!);
                       },
                       icon: Icon(
                         Icons.calendar_month_outlined,
@@ -143,11 +146,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
         child: GestureDetector(
           onTap: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => BottomNavBarScreen(),
-              ),
+            ref
+                .read(userScreenProvider.notifier)
+                .setUserInfo(nameController.text, dateOfBirthController.text)
+                .then(
+              (value) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BottomNavBarScreen(),
+                  ),
+                );
+              },
             );
           },
           child: Container(
@@ -158,7 +168,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               borderRadius: BorderRadius.circular(35),
             ),
             child: Text(
-              "Get Started",
+              "Let's go",
               style: GoogleFonts.poppins(
                 color: ColorConstants.white,
                 fontSize: 25,
