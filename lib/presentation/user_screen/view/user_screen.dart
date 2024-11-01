@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
-import 'package:todo_list_app/presentation/user_screen/controller/user_controller.dart';
 import 'package:todo_list_app/utils/color_constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_list_app/utils/image_constants.dart';
-
 import '../../bottom_nav_bar_screen/view/bottom_nav_bar_screen.dart';
+import '../controller/user_controller.dart';
 
 class UserScreen extends ConsumerStatefulWidget {
   const UserScreen({super.key});
@@ -16,8 +14,8 @@ class UserScreen extends ConsumerStatefulWidget {
 }
 
 class _UserScreenState extends ConsumerState<UserScreen> {
-  final TextEditingController nameController = TextEditingController();
-  TextEditingController dateOfBirthController = TextEditingController();
+  var nameController = TextEditingController();
+  var dateOfBirthController = TextEditingController();
   final GlobalKey _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -115,13 +113,9 @@ class _UserScreenState extends ConsumerState<UserScreen> {
                     ),
                     suffixIcon: IconButton(
                       onPressed: () async {
-                        var birthDate = await showDatePicker(
-                          context: context,
-                          firstDate: DateTime(1930),
-                          lastDate: DateTime.now(),
-                        );
-                        dateOfBirthController.text =
-                            DateFormat('yMMd').format(birthDate!);
+                        dateOfBirthController.text = await ref
+                            .read(userScreenProvider.notifier)
+                            .setDOB(context);
                       },
                       icon: Icon(
                         Icons.calendar_month_outlined,

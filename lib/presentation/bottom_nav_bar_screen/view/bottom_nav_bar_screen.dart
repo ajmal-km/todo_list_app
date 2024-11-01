@@ -16,9 +16,7 @@ class BottomNavBarScreen extends ConsumerWidget {
       body: navBarState.screens[navBarState.currentScreenIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: ColorConstants.white,
-        onTap: (value) {
-          ref.read(navBarProvider.notifier).changeScreen(value);
-        },
+        onTap: (value) => ref.read(navBarProvider.notifier).changeScreen(value),
         currentIndex: navBarState.currentScreenIndex,
         selectedItemColor: ColorConstants.cyan,
         unselectedItemColor: ColorConstants.grey,

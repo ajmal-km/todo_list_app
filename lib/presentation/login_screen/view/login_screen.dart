@@ -15,8 +15,8 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passController = TextEditingController();
+  var emailController = TextEditingController();
+  var passController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override

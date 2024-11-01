@@ -160,7 +160,7 @@ class ProfileScreen extends ConsumerWidget {
                         child: GestureDetector(
                           onTap: () => ref
                               .read(profileScreenProvider.notifier)
-                              .onSaveOrCancelTapped(),
+                              .onCancelTapped(),
                           child: Container(
                             height: 40,
                             alignment: Alignment.center,
@@ -169,7 +169,7 @@ class ProfileScreen extends ConsumerWidget {
                               borderRadius: BorderRadius.circular(11),
                             ),
                             child: Text(
-                              "Save",
+                              "Cancel",
                               style: GoogleFonts.poppins(
                                 color: ColorConstants.white,
                                 fontSize: 20,
@@ -185,7 +185,7 @@ class ProfileScreen extends ConsumerWidget {
                         child: GestureDetector(
                           onTap: () => ref
                               .read(profileScreenProvider.notifier)
-                              .onSaveOrCancelTapped(),
+                              .onUpdate(nameController.text, dateOfBirthController.text),
                           child: Container(
                             height: 40,
                             alignment: Alignment.center,
@@ -194,7 +194,7 @@ class ProfileScreen extends ConsumerWidget {
                               borderRadius: BorderRadius.circular(11),
                             ),
                             child: Text(
-                              "Cancel",
+                              "Update",
                               style: GoogleFonts.poppins(
                                 color: ColorConstants.white,
                                 fontSize: 20,
