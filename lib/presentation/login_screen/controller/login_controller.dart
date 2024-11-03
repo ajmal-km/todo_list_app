@@ -6,7 +6,8 @@ import 'package:todo_list_app/presentation/login_screen/state/login_screen_state
 import 'package:todo_list_app/utils/color_constants.dart';
 
 final loginScreenProvider =
-    StateNotifierProvider((ref) => LoginControllerStateNotifier());
+    StateNotifierProvider<LoginControllerStateNotifier, LoginScreenState>(
+        (ref) => LoginControllerStateNotifier());
 
 class LoginControllerStateNotifier extends StateNotifier<LoginScreenState> {
   LoginControllerStateNotifier()
@@ -18,9 +19,10 @@ class LoginControllerStateNotifier extends StateNotifier<LoginScreenState> {
     state = state.copyWith(isHidden: !state.isObscure);
   }
 
-  Future<void> onLogin(String email, String password, BuildContext context) async {
+  Future<void> onLogin(
+      String email, String password, BuildContext context) async {
     state = state.copyWith(isLoading: true);
-    
+
     final SharedPreferences pref = await SharedPreferences.getInstance();
     String? regEmail = pref.getString("email");
     String? regPasssword = pref.getString("password");
@@ -47,7 +49,7 @@ class LoginControllerStateNotifier extends StateNotifier<LoginScreenState> {
         ),
       );
     } else {
-      // 
+      //
     }
     state = state.copyWith(isLoading: false);
   }

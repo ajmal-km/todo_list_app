@@ -5,15 +5,13 @@ import 'package:todo_list_app/utils/color_constants.dart';
 import 'package:todo_list_app/utils/image_constants.dart';
 
 import '../controller/profile_controller.dart';
-import '../state/profile_screen_state.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileScreenState =
-        ref.watch(profileScreenProvider) as ProfileScreenState;
+    final profileScreenState = ref.watch(profileScreenProvider);
     TextEditingController nameController = TextEditingController();
     TextEditingController dateOfBirthController = TextEditingController();
     return Scaffold(
@@ -185,7 +183,8 @@ class ProfileScreen extends ConsumerWidget {
                         child: GestureDetector(
                           onTap: () => ref
                               .read(profileScreenProvider.notifier)
-                              .onUpdate(nameController.text, dateOfBirthController.text),
+                              .onUpdate(nameController.text,
+                                  dateOfBirthController.text),
                           child: Container(
                             height: 40,
                             alignment: Alignment.center,

@@ -2,8 +2,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../state/registration_screen_state.dart';
 
-final registrationScreenProvider =
-    StateNotifierProvider((ref) => RegistrationControllerStateNotifier());
+final registrationScreenProvider = StateNotifierProvider<
+    RegistrationControllerStateNotifier,
+    RegistrationScreenState>((ref) => RegistrationControllerStateNotifier());
 
 class RegistrationControllerStateNotifier
     extends StateNotifier<RegistrationScreenState> {

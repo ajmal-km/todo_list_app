@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../state/profile_screen_state.dart';
 
 final profileScreenProvider =
-    StateNotifierProvider((ref) => ProfileControllerStateNotifier());
+    StateNotifierProvider<ProfileControllerStateNotifier, ProfileScreenState>(
+        (ref) => ProfileControllerStateNotifier());
 
 class ProfileControllerStateNotifier extends StateNotifier<ProfileScreenState> {
   ProfileControllerStateNotifier()
-      : super(ProfileScreenState(
-          isNameReadOnly: true,
-          isWidgetVisible: false,
-          name: "",
-          dateOfBirth: "",
-          loading: false,
-        ));
+      : super(
+          ProfileScreenState(
+            isNameReadOnly: true,
+            isWidgetVisible: false,
+            name: "",
+            dateOfBirth: "",
+            loading: false,
+          ),
+        );
 
   void onEditTapped() {
     state = state.copyWith(isReadOnly: false, isVisible: true);

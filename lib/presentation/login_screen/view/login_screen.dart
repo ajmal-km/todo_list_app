@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:todo_list_app/presentation/login_screen/controller/login_controller.dart';
-import 'package:todo_list_app/presentation/login_screen/state/login_screen_state.dart';
-
 import '../../../utils/color_constants.dart';
 import '../../registration_screen/view/registration_screen.dart';
+import '../controller/login_controller.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -21,7 +19,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final loginScreenState = ref.watch(loginScreenProvider) as LoginScreenState;
+    final loginScreenState = ref.watch(loginScreenProvider);
     return Scaffold(
         appBar: AppBar(),
         body: Padding(
@@ -185,7 +183,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0),
                           child: Container(
                             padding: EdgeInsets.all(3),
                             decoration: BoxDecoration(

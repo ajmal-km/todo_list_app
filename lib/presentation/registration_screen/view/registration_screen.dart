@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../utils/color_constants.dart';
 import '../../login_screen/view/login_screen.dart';
 import '../controller/registration_controller.dart';
-import '../state/registration_screen_state.dart';
 
 class RegistrationScreen extends ConsumerStatefulWidget {
   const RegistrationScreen({super.key});
@@ -22,8 +21,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final registrationScreenScreenState =
-        ref.watch(registrationScreenProvider) as RegistrationScreenState;
+    final registrationScreenState = ref.watch(registrationScreenProvider);
     return Scaffold(
         appBar: AppBar(),
         body: Padding(
@@ -48,9 +46,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                   cursorColor: ColorConstants.cyan,
                   cursorRadius: Radius.circular(10),
                   controller: emailController,
-                  onTapOutside: (event) {
-                    FocusManager.instance.primaryFocus!.unfocus();
-                  },
+                  onTapOutside: (event) => FocusManager.instance.primaryFocus!.unfocus(),
                   style: GoogleFonts.poppins(
                     color: ColorConstants.black,
                     fontSize: 18,
@@ -104,7 +100,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
-                  obscureText: registrationScreenScreenState.passwordObscure,
+                  obscureText: registrationScreenState.passwordObscure,
                   cursorWidth: 2.3,
                   cursorColor: ColorConstants.cyan,
                   cursorRadius: Radius.circular(10),
@@ -135,7 +131,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                           .read(registrationScreenProvider.notifier)
                           .showPassword(),
                       child:
-                          registrationScreenScreenState.passwordObscure == true
+                          registrationScreenState.passwordObscure == true
                               ? Icon(
                                   Icons.visibility,
                                   color: ColorConstants.grey,
@@ -181,7 +177,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                 SizedBox(height: 20),
                 TextFormField(
                   obscureText:
-                      registrationScreenScreenState.confirmPasswordObscure,
+                      registrationScreenState.confirmPasswordObscure,
                   cursorWidth: 2.3,
                   cursorColor: ColorConstants.cyan,
                   cursorRadius: Radius.circular(10),
@@ -213,7 +209,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                             .read(registrationScreenProvider.notifier)
                             .showConfirmPassword();
                       },
-                      child: registrationScreenScreenState
+                      child: registrationScreenState
                                   .confirmPasswordObscure ==
                               true
                           ? Icon(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:todo_list_app/presentation/bottom_nav_bar_screen/controller/bottom_navbar_controller.dart';
-import 'package:todo_list_app/presentation/bottom_nav_bar_screen/state/bottom_navbar_state.dart';
 import 'package:todo_list_app/utils/color_constants.dart';
 import 'package:todo_list_app/utils/image_constants.dart';
+import '../controller/bottom_navbar_controller.dart';
+import '../state/bottom_navbar_state.dart';
 
 class BottomNavBarScreen extends ConsumerWidget {
   const BottomNavBarScreen({super.key});

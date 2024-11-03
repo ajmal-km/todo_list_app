@@ -6,7 +6,7 @@ import '../../category_screen/view/category_screen.dart';
 import '../../home_screen/view/home_screen.dart';
 import '../../profile_screen/view/profile_screen.dart';
 
-final navBarProvider = StateNotifierProvider((ref) => BottomNavBarStateNotifier());
+final navBarProvider = StateNotifierProvider<BottomNavBarStateNotifier, BottomNavbarState>((ref) => BottomNavBarStateNotifier());
 
 class BottomNavBarStateNotifier extends StateNotifier<BottomNavbarState> {
   BottomNavBarStateNotifier()

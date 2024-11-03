@@ -1,29 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:todo_list_app/presentation/home_screen/widgets/task_container.dart';
-import 'package:todo_list_app/presentation/todo_screen/view/todo_screen.dart';
-import 'package:todo_list_app/utils/app_sessions.dart';
 import 'package:todo_list_app/utils/color_constants.dart';
+import '../../todo_screen/view/todo_screen.dart';
+import '../controller/home_controller.dart';
+import '../widgets/task_container.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  var todoBox = Hive.box(AppSessions.todoBox);
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) async {
+        ref.read(homeScreenProvider.notifier).getUsername();
+      },
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final homeSreenState = ref.watch(homeScreenProvider);
     return Scaffold(
       backgroundColor: ColorConstants.white,
       appBar: AppBar(
         backgroundColor: ColorConstants.cyan,
         surfaceTintColor: ColorConstants.cyan,
         title: Text(
-          "Hi, User",
+          "Hi, ${homeSreenState.name}",
           style: GoogleFonts.poppins(
             color: ColorConstants.white,
             fontSize: 26,

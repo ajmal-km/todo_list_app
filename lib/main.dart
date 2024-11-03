@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:todo_list_app/utils/app_sessions.dart';
-import 'package:todo_list_app/presentation/splash_screen/view/splash_screen.dart';
-
+import 'presentation/splash_screen/view/splash_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
