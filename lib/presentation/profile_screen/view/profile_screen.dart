@@ -75,20 +75,24 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                     letterSpacing: -0.7,
                                   ),
                                 ),
-                                SizedBox(height: 5),
                                 Visibility(
                                   visible:
                                       profileSreenState.dateOfBirth.isNotEmpty
                                           ? true
                                           : false,
-                                  child: Text(
-                                    profileSreenState.dateOfBirth,
-                                    style: GoogleFonts.poppins(
-                                      color: ColorConstants.grey,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      letterSpacing: -0.7,
-                                    ),
+                                  child: Column(
+                                    children: <Widget>[
+                                      SizedBox(height: 5),
+                                      Text(
+                                        profileSreenState.dateOfBirth,
+                                        style: GoogleFonts.poppins(
+                                          color: ColorConstants.grey,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: -0.7,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
