@@ -4,14 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_list_app/utils/color_constants.dart';
 import 'package:todo_list_app/utils/image_constants.dart';
 import '../controller/bottom_navbar_controller.dart';
-import '../state/bottom_navbar_state.dart';
 
 class BottomNavBarScreen extends ConsumerWidget {
   const BottomNavBarScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final navBarState = ref.watch(navBarProvider) as BottomNavbarState;
+    final navBarState = ref.watch(navBarProvider);
     return Scaffold(
       body: navBarState.screens[navBarState.currentScreenIndex],
       bottomNavigationBar: BottomNavigationBar(

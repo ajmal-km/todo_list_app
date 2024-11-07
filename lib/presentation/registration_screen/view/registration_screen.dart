@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:todo_list_app/presentation/global/custom_widgets.dart';
 
 import '../../../utils/color_constants.dart';
 import '../../login_screen/view/login_screen.dart';
@@ -15,6 +16,7 @@ class RegistrationScreen extends ConsumerStatefulWidget {
 }
 
 class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
+  var nameController = TextEditingController();
   var emailController = TextEditingController();
   var passController = TextEditingController();
   var confirmPassController = TextEditingController();
@@ -33,11 +35,12 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Creat Account",
+                  "Create Account",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
+                    letterSpacing: -0.7,
                   ),
                 ),
                 SizedBox(height: 30),
@@ -45,8 +48,68 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                   cursorWidth: 2.3,
                   cursorColor: ColorConstants.cyan,
                   cursorRadius: Radius.circular(10),
+                  controller: nameController,
+                  onTapOutside: (event) =>
+                      FocusManager.instance.primaryFocus!.unfocus(),
+                  style: GoogleFonts.poppins(
+                    color: ColorConstants.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: -0.5,
+                  ),
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.person_4,
+                      color: ColorConstants.grey,
+                    ),
+                    hintText: "Name",
+                    hintStyle: GoogleFonts.poppins(
+                      color: ColorConstants.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.5,
+                    ),
+                    errorStyle: GoogleFonts.poppins(
+                      color: ColorConstants.red,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide:
+                          BorderSide(width: 2.3, color: ColorConstants.cyan),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide:
+                          BorderSide(width: 2.3, color: ColorConstants.cyan),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide:
+                          BorderSide(width: 2.3, color: ColorConstants.red),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide:
+                          BorderSide(width: 2.3, color: ColorConstants.grey),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value != null && value.length > 1) {
+                      return null;
+                    } else {
+                      return "Enter a valid name";
+                    }
+                  },
+                ),
+                SizedBox(height: 20),
+                TextFormField(
+                  cursorWidth: 2.3,
+                  cursorColor: ColorConstants.cyan,
+                  cursorRadius: Radius.circular(10),
                   controller: emailController,
-                  onTapOutside: (event) => FocusManager.instance.primaryFocus!.unfocus(),
+                  onTapOutside: (event) =>
+                      FocusManager.instance.primaryFocus!.unfocus(),
                   style: GoogleFonts.poppins(
                     color: ColorConstants.black,
                     fontSize: 18,
@@ -58,7 +121,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                       Icons.mail,
                       color: ColorConstants.grey,
                     ),
-                    hintText: "Your Email",
+                    hintText: "Email",
                     hintStyle: GoogleFonts.poppins(
                       color: ColorConstants.black,
                       fontSize: 18,
@@ -119,7 +182,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                       Icons.lock,
                       color: ColorConstants.grey,
                     ),
-                    hintText: "Your password",
+                    hintText: "Password",
                     hintStyle: GoogleFonts.poppins(
                       color: ColorConstants.black,
                       fontSize: 18,
@@ -130,16 +193,15 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                       onTap: () => ref
                           .read(registrationScreenProvider.notifier)
                           .showPassword(),
-                      child:
-                          registrationScreenState.passwordObscure == true
-                              ? Icon(
-                                  Icons.visibility,
-                                  color: ColorConstants.grey,
-                                )
-                              : Icon(
-                                  Icons.visibility_off,
-                                  color: ColorConstants.grey,
-                                ),
+                      child: registrationScreenState.passwordObscure == true
+                          ? Icon(
+                              Icons.visibility,
+                              color: ColorConstants.grey,
+                            )
+                          : Icon(
+                              Icons.visibility_off,
+                              color: ColorConstants.grey,
+                            ),
                     ),
                     errorStyle: GoogleFonts.poppins(
                       color: ColorConstants.red,
@@ -176,8 +238,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
-                  obscureText:
-                      registrationScreenState.confirmPasswordObscure,
+                  obscureText: registrationScreenState.confirmPasswordObscure,
                   cursorWidth: 2.3,
                   cursorColor: ColorConstants.cyan,
                   cursorRadius: Radius.circular(10),
@@ -196,7 +257,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                       Icons.lock,
                       color: ColorConstants.grey,
                     ),
-                    hintText: "Confirm your password",
+                    hintText: "Confirm password",
                     hintStyle: GoogleFonts.poppins(
                       color: ColorConstants.black,
                       fontSize: 18,
@@ -209,17 +270,16 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                             .read(registrationScreenProvider.notifier)
                             .showConfirmPassword();
                       },
-                      child: registrationScreenState
-                                  .confirmPasswordObscure ==
-                              true
-                          ? Icon(
-                              Icons.visibility,
-                              color: ColorConstants.grey,
-                            )
-                          : Icon(
-                              Icons.visibility_off,
-                              color: ColorConstants.grey,
-                            ),
+                      child:
+                          registrationScreenState.confirmPasswordObscure == true
+                              ? Icon(
+                                  Icons.visibility,
+                                  color: ColorConstants.grey,
+                                )
+                              : Icon(
+                                  Icons.visibility_off,
+                                  color: ColorConstants.grey,
+                                ),
                     ),
                     errorStyle: GoogleFonts.poppins(
                       color: ColorConstants.red,
@@ -261,28 +321,12 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                       ref
                           .read(registrationScreenProvider.notifier)
                           .onRegistration(
+                            nameController.text,
                             emailController.text,
                             passController.text,
                           );
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          duration: Duration(seconds: 2),
-                          backgroundColor: ColorConstants.green,
-                          behavior: SnackBarBehavior.floating,
-                          padding: EdgeInsets.all(20),
-                          margin: EdgeInsets.all(25),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(13),
-                          ),
-                          content: Text(
-                            "Registration Success..!",
-                            style: GoogleFonts.poppins(
-                              fontSize: 15.7,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      );
+                      CustomWidgets.customSnakbar(ColorConstants.green,
+                          "Registration success.!", context);
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -290,25 +334,8 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                         ),
                       );
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          duration: Duration(seconds: 2),
-                          backgroundColor: ColorConstants.red,
-                          behavior: SnackBarBehavior.floating,
-                          padding: EdgeInsets.all(20),
-                          margin: EdgeInsets.all(25),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(13),
-                          ),
-                          content: Text(
-                            "Registration Failed !",
-                            style: GoogleFonts.poppins(
-                              fontSize: 15.7,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      );
+                      CustomWidgets.customSnakbar(
+                          ColorConstants.red, "Registration failed.!", context);
                     }
                   },
                   child: Container(

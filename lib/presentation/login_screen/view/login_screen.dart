@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:todo_list_app/presentation/global/custom_widgets.dart';
+import 'package:todo_list_app/presentation/home_screen/view/home_screen.dart';
 import '../../../utils/color_constants.dart';
 import '../../registration_screen/view/registration_screen.dart';
 import '../controller/login_controller.dart';
@@ -221,43 +223,26 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 SizedBox(height: 20),
                 GestureDetector(
-                  onTap: () {
-                    // if (DummyDb.storedEmail.isNotEmpty &&
-                    //     DummyDb.storedPassword.isNotEmpty) {
-                    //   if (_formKey.currentState!.validate()) {
-                    //     if (emailController.text == DummyDb.storedEmail &&
-                    //         passController.text == DummyDb.storedPassword) {
-                    //       Navigator.pushReplacement(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //           builder: (context) => HomeScreen(),
-                    //         ),
-                    //       );
-                    //     }
-                    //   } else {
-                    //     ScaffoldMessenger.of(context).showSnackBar(
-                    //       SnackBar(
-                    //         duration: Duration(seconds: 2),
-                    //         backgroundColor: Color(0xffc30e03),
-                    //         behavior: SnackBarBehavior.floating,
-                    //         padding: EdgeInsets.all(20),
-                    //         margin: EdgeInsets.all(25),
-                    //         shape: RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.circular(13),
-                    //         ),
-                    //         content: Text(
-                    //           "Login Failed, Try Again..!",
-                    //           style: GoogleFonts.poppins(
-                    //             fontSize: 15.7,
-                    //             fontWeight: FontWeight.w500,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     );
-                    //   }
-                    // } else {
-                    // 
-                    // }
+                  onTap: () async {
+                    int statusCode = await ref
+                        .read(loginScreenProvider.notifier)
+                        .onLogin(emailController.text, passController.text);
+                    if (statusCode == 0) {
+                      CustomWidgets.customSnakbar(
+                          ColorConstants.green, "Login Sucess", context);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                      );
+                    } else if (statusCode < 0) {
+                      CustomWidgets.customSnakbar(ColorConstants.red,
+                          "Please register to login!", context);
+                    } else {
+                      CustomWidgets.customSnakbar(
+                          ColorConstants.red, "Invalid credentials", context);
+                    }
                   },
                   child: Container(
                     height: 60,

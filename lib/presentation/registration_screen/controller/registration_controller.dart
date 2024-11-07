@@ -24,11 +24,13 @@ class RegistrationControllerStateNotifier
     state = state.copyWith(confirmPassHidden: !state.confirmPasswordObscure);
   }
 
-  Future<void> onRegistration(String email, String password) async {
+  Future<void> onRegistration(String name, String email, String password) async {
     state = state.copyWith(isLoading: true);
     final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString("name", name);
     pref.setString("email", email);
     pref.setString("password", password);
+    pref.setBool("isLogged", true);
     state = state.copyWith(isLoading: false);
   }
 }

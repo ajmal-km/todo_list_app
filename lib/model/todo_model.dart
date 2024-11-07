@@ -1,5 +1,8 @@
 import 'package:hive/hive.dart';
 
+part 'todo_model.g.dart';
+
+@HiveType(typeId: 1)
 class TodoModel {
   TodoModel({
     this.category,
